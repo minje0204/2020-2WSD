@@ -1,41 +1,85 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../../models/user');
+const bkfd2Password = require("pbkdf2-password");
+var hasher = bkfd2Password();
 router.post('/register',function(req,res) {
-    if(req.body.userid.length < 1) {
-        return res.json('ID를 입력하세요'
-        );
-    }
-    if(req.body.password.length < 1) {
-        return res.json('비밀번호를 입력하세요'
-        );
-    }
-    const user = new User({
-        userid: req.body.userid,
-        password: req.body.password
-    });
-    user.save((err) => {
-        if(err){
-            res.send(err)
-        }
-        else{
-            res.json(`success`)
-        }
+    hasher({password: req.body.password}, (err, pass, salt, hash) => {
+        const user = new User({
+            userid: req.body.userid,
+            password: hash,
+            salt: salt,
+            cash:req.body.cash,
+        });
+        user.save((err) => {
+            if (err) {
+                res.send(err)
+            } else {
+                res.json({success: true, msg: `회원가입 완료!`})
+            }
+        });
     });
 });
 router.post('/checkid',function(req,res) {
-    User.find({userid:req.body.userid},function(err,data)
+    User.findOne({userid:req.body.userid},function(err,data)
     {
         if(err){res.send(err);}
         else{
             if(data.length!=0){
-                return res.json(`중복된 ID입니다.`);
+                return res.json({success:false,msg:`중복된 ID입니다`});
             }
             else{
-                return res.json(`사용가능한 ID입니다.`);
+                return res.json({success:true,msg:`사용할 수 있는 ID입니다.`});
             }
         }
     })
 });
+
+
+router.get('/login',function(req, res) {
+    res.send('hi'+req.session.userid);
+})
+router.post('/login', function(req, res){
+
+    User.findOne({userid : req.body.userid}, function(err, user){
+        if(err)throw err;
+        if(!user)return res.json({success:false,msg:`ID를 확인해주십시오.`});
+
+        hasher({password: req.body.password,salt:user.salt}, (err, pass, salt, hash) => {
+        if (hash===user.password)
+            {
+                req.session.userid = user.userid;
+                req.session.islogin = true;
+                console.log(req.session);
+                req.session.save(() => {
+                    res.json({success: true, user:req.session.userid,msg: `${req.session.userid}님 환영합니다!`});
+                })
+            }
+        else return res.json({success:false,msg:`잘못된 비밀번호입니다.`});
+        });
+    })
+})
+router.get('/logout', function(req, res){
+    res.send(`
+        <h1>logout</h1>
+        <form action='/logout' method='post'>
+            <p><input type='text' name="title" placeholder="title"/></p>
+            <p><input type='password' name="author" placeholder="author"/></p>
+            <p><input type='text' name="username" placeholder="username"/></p>
+            <p><input type='submit'/></p>
+        </form>
+        `)
+})
+router.post('/logout', function(req, res){
+    User.findOne({userid : req.body.userid}, function(err, user){
+        if(err)  return res.send(err)
+        if(!user) return res.send('해당하는 ID가 없습니다.')
+        else {
+            req.session.destroy(); // /login에서 만들어진 SessionID를 DB와 쿠키에서 삭제
+            res.send('로그아웃 되었습니다. 세션을 확인하세요')
+        }
+    })
+})
+
 module.exports = router;
 

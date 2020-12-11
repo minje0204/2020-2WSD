@@ -12,6 +12,15 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+    salt: {
+        type: String,
+        required: true,
+    },
+    cash:{
+        type: Number,
+        required: true,
+    },
+    profit:[]
 });
 userSchema.plugin(mongooseAutoInc.plugin, 'user');
 module.exports = mongoose.model('user', userSchema);

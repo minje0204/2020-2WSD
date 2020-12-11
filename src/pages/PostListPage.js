@@ -1,13 +1,18 @@
-import React from 'react';
+import React,{Component} from 'react';
+import axios from 'axios';
 import Button from '../components/common/Button';
-//import Navigator from '../components/common/Navigator';
-//import PostTemplate from '../components/Post/PostTemplate';
-//import PostForm from '../components/Post/PostForm';
+import Postform from '../components/posts/Postform'
 
-const PostListPage = () => {
-    return (
-        <Button> OK</Button>
-    );
-};
+class PostListPage extends Component {
 
-export default PostListPage;
+    render() {
+        return (
+            <div>
+                <Postform
+                />
+            </div>
+        )
+    }
+}
+
+export default PostListPage

@@ -4,14 +4,13 @@ const Schema = mongoose.Schema;
 var connection = mongoose.createConnection("mongodb://localhost:27017/AntKing");
 mongooseAutoInc.initialize(connection);
 const stockSchema = new Schema({
-    stockname: {
+    userid:{
         type: String,
-        required: true,
+        required: true
     },
-    stocknum: {
-        type: Integer,
-        required: true,
-    },
+    stocklist: [{
+        stockname: String, stocknum: Number,stockprice:Number
+    }]
 });
-userSchema.plugin(mongooseAutoInc.plugin, 'user');
-module.exports = mongoose.model('user', userSchema);
+stockSchema.plugin(mongooseAutoInc.plugin, 'stock');
+module.exports = mongoose.model('stock', stockSchema);

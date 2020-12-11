@@ -1,9 +1,8 @@
 import React,{useState} from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
-import { Link } from 'react-router-dom';
+import { Link,withRouter,useHistory } from 'react-router-dom';
 import Button from '../common/Button';
-import {Redirect} from 'react-router';
 import axios from 'axios';
 
 const textMap = {
@@ -17,7 +16,6 @@ const UserFormBlock = styled.div`
     color: ${palette.gray[8]};
     margin-bottom: 1rem;
   }`;
-
 const StyledInput = styled.input`
   font-size: 1rem;
   border: none;
@@ -53,48 +51,68 @@ const ButtonWithBottom = styled(Button)`
 const UserForm = ({type})=>{
     const [userid,setUserid]=useState('');
     const onChangeId=e=>setUserid(e.target.value);
-    const text=textMap[type];
     const [password,setPassword]=useState('');
     const onChangePw=e=>setPassword(e.target.value);
-    const [confirmPassword, setconfirmPassword] = useState("")
-    const onconfirmPasswordHandler = (event) => {
-        setconfirmPassword(event.currentTarget.value)
+    const [confirmPassword, setConfirmPassword] = useState("")
+    const onConfirmPasswordHandler = (event) => {
+        setConfirmPassword(event.currentTarget.value)
     }
+    const [cash,setCash]=useState('');
+    const onChangeCash=e=>setCash(e.target.value);
+    const history=useHistory();
+    const text=textMap[type];
+
+
     var handleFormSubmit=()=>{};
-    if(type==='login'){
+
+    if(type==='login'){  //for login
     handleFormSubmit=(event)=> {
         event.preventDefault(); // 아무 동작 안하고 버튼만 눌러도 리프레쉬 되는 것을 막는다
-
-        fetch('http://localhost:3001/user/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+        if(!password||!userid){
+            return alert('아이디,비밀번호를 모두 입력해주세요')
+        }
+        axios({
+            method: 'post',
+            url: 'http://localhost:3001/user/login',
+            data: {
                 'userid': userid,
                 'password': password
-            })
-        }).then(res=>{console.log(res.body);res.json()}
-        ).then(res=>{console.log(res);if(res.result==='true'){alert('로그인 완료!')}else{alert('실패!')}})
+            }
+        }).then(function (res) {
+            localStorage.setItem('isLogin','true');
+            localStorage.setItem('userid',userid);
+            alert(res.data.msg);
+            if(localStorage.getItem('isLogin')==='true')  history.push('/@'+userid);
+
+        }).catch(err => alert(err))
+
     }
-    }else {
+
+
+    }else {    //for register
         handleFormSubmit = (event) => {
+
             event.preventDefault(); // 아무 동작 안하고 버튼만 눌러도 리프레쉬 되는 것을 막는다
 
             if(password !== confirmPassword){
                 return alert('비밀번호와 비밀번호 확인은 같아야 합니다.')
+            }
+            if(!password||!userid||!cash){
+                return alert('공란이 있습니다')
             }
             axios({
                 method:'post',
                 url:'http://localhost:3001/user/register',
                 data: {
                     'userid': userid,
-                    'password': password
+                    'password': password,
+                    'cash':cash
                 }
-            }).then(function(res){alert(res.data);}).catch(err=>alert(err))
+            }).then(function(res){alert(res.data.msg);
+            if(res.data.success)history.push('/login');}).catch(err=>alert(err))
         }
     }
-    const handleIDSubmit = (event) => {
+    const handleIDSubmit = (event) => {   //id 중복 확인
         event.preventDefault(); // 아무 동작 안하고 버튼만 눌러도 리프레쉬 되는 것을 막는다
 
         axios({
@@ -133,9 +151,16 @@ const UserForm = ({type})=>{
                         placeholder="비밀번호 확인"
                         type="password"
                         value={confirmPassword}
-                        onChange={onconfirmPasswordHandler}
+                        onChange={onConfirmPasswordHandler}
                     />
                 )}
+                {type==='register'&&(<StyledInput
+                    name="cash"
+                    placeholder="예수금 입력"
+                    type="number"
+                    value={cash}
+                    onChange={onChangeCash}
+                />)}
                 <ButtonWithMarginTop cyan fullWidth>{text}</ButtonWithMarginTop>
 
             </form>
@@ -146,4 +171,5 @@ const UserForm = ({type})=>{
         </UserFormBlock>
     );
 };
-export default UserForm;
+
+export default withRouter(UserForm);
