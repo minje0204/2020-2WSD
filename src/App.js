@@ -4,9 +4,11 @@ import Navigator from "./components/common/Navigator";
 import { Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import PostListPage from './pages/PostListPage';
+import HomePage from './pages/HomePage';
+import PostWritePage from './pages/PostWritePage';
+import PostPage from './pages/PostPage';
 import axios from 'axios';
-
+import AuthRoute from "./components/user/AuthRoute";
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -31,10 +33,13 @@ class App extends React.Component {
           <header>
                   <Navigator/>
           </header>
+            <Route component={HomePage} path="/" />
           <Route component={LoginPage} path="/login" />
           <Route component={RegisterPage} path="/register" />
-          <Route component={PostListPage} path={["/@:username"]} exact/>
-        </div>
+          <Route component={PostWritePage} path="/write/@:username" />
+          <Route component={PostPage} path={["/@:username"]} exact/>
+
+            </div>
     );
   }
 }

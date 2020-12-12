@@ -62,9 +62,16 @@ router.post('/create',function(req,res) {
             user.cash = cash;
             user.save()
         })
-
-
-
 });
+
+router.get('/read/@:id', function (req, res, next) {
+    Stock.findOne({userid:req.params.id}, (err, stock) => {
+        User.findOne({userid:req.params.id}, (err, user) => {
+        res.json({ stocklist: stock.stocklist,profit:user.profit });
+        }
+    );
+    });
+});
+
 module.exports = router;
 

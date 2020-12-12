@@ -40,6 +40,9 @@ const Navigator = ({type})=>{
         localStorage.removeItem('isLogin','false');
         history.push('/');
     }
+    const writetab=()=>{
+        history.push(`/write/@${localStorage.getItem('userid')}`);
+    }
     const posttab=()=>{
         history.push(`/@${localStorage.getItem('userid')}`);
     }
@@ -54,9 +57,16 @@ const Navigator = ({type})=>{
                     <NavigatorLink href="/login"> Login </NavigatorLink>)}
             </NavigatorItem>
             <NavigatorItem>
-                {localStorage.getItem('isLogin')==='true'?(<NavigatorLink onClick={posttab}> 매매일지 </NavigatorLink>):(
+                {localStorage.getItem('isLogin')==='true'?(<NavigatorLink onClick={writetab}>매매일지 작성</NavigatorLink>
+                    ):(
                     <NavigatorLink href="/register"> 회원가입 </NavigatorLink>)}
             </NavigatorItem>
+            <NavigatorItem>
+                {localStorage.getItem('isLogin')==='true'?(<NavigatorLink onClick={posttab}>자산 평가</NavigatorLink>
+                ):(<div></div>)}
+            </NavigatorItem>
+
+
         </NavigatorBlock>
     );
 };

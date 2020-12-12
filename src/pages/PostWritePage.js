@@ -8,8 +8,7 @@ class PostListPage extends Component {
     render() {
         return (
             <div>
-                <Postform
-                />
+                <Postform/>
             </div>
         )
     }

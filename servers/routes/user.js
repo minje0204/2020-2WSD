@@ -80,6 +80,10 @@ router.post('/logout', function(req, res){
         }
     })
 })
-
+router.get('/read', function (req, res, next) {
+    User.find({}, (err, userlist) => {
+                res.json({ userlist: userlist});
+    });
+});
 module.exports = router;
 
