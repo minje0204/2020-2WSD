@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../../models/user');
+const Stock = require('../../models/stock');
 const bkfd2Password = require("pbkdf2-password");
 var hasher = bkfd2Password();
 router.post('/register',function(req,res) {
@@ -82,8 +83,9 @@ router.post('/logout', function(req, res){
 })
 router.get('/read', function (req, res, next) {
     User.find({}, (err, userlist) => {
-                res.json({ userlist: userlist});
-    });
+            res.json({userlist: userlist});
+    })
+
 });
 module.exports = router;
 

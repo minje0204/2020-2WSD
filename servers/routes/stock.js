@@ -56,7 +56,7 @@ router.post('/create',function(req,res) {
     })
 
         User.findOne({userid:req.body.userid}).then((user)=> {
-            if (profit > 0) user.profit.push(profit);
+            if (profit > 0) user.profit.push(profitPct);
             cash = user.cash;
             cash -= (req.body.sellnum * req.body.sellprice);
             user.cash = cash;
@@ -66,8 +66,9 @@ router.post('/create',function(req,res) {
 
 router.get('/read/@:id', function (req, res, next) {
     Stock.findOne({userid:req.params.id}, (err, stock) => {
+        if(!stock){return res.json({success:false})}
         User.findOne({userid:req.params.id}, (err, user) => {
-        res.json({ stocklist: stock.stocklist,profit:user.profit });
+        res.json({ success:true,stocklist: stock.stocklist,profit:user.profit });
         }
     );
     });

@@ -6,6 +6,7 @@ const port =process.env.PORT || 3001;
 const indexrouter = require('./routes/index')
 const userrouter = require('./routes/user')
 const stockrouter = require('./routes/stock')
+const postrouter = require('./routes/posts')
 app.use(cors());
 const session =require('express-session');
 const MongoStore=require('connect-mongo')(session);
@@ -36,6 +37,7 @@ app.use(bodyParser.json());
 app.use('/api', indexrouter);
 app.use('/user', userrouter);
 app.use('/stock', stockrouter);
+app.use('/posts', postrouter);
 app.listen(port, ()=>{
     console.log(`express is running on ${port}`);
 })

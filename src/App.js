@@ -7,6 +7,7 @@ import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
 import PostWritePage from './pages/PostWritePage';
 import PostPage from './pages/PostPage';
+
 import axios from 'axios';
 import AuthRoute from "./components/user/AuthRoute";
 class App extends React.Component {
@@ -33,11 +34,12 @@ class App extends React.Component {
           <header>
                   <Navigator/>
           </header>
-            <Route component={HomePage} path="/" />
+
+            <Route component={HomePage} exact path="/" />
           <Route component={LoginPage} path="/login" />
           <Route component={RegisterPage} path="/register" />
           <Route component={PostWritePage} path="/write/@:username" />
-          <Route component={PostPage} path={["/@:username"]} exact/>
+          <Route component={PostPage} path={["/@:username"]} />
 
             </div>
     );

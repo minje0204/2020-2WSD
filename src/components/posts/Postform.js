@@ -31,6 +31,9 @@ const Postform = ()=> {
                 'buyname': buyname,
                 'buynum': parseInt(buynum, 10),
                 'buyprice': parseInt(buyprice, 10),
+                /*'year':date.getFullYear(),
+                'month':date.getMonth(),
+                'day':date.getDate(),*/
             }
         }).then(function (res) {
             console.log(res.data);

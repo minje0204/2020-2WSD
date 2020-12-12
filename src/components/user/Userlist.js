@@ -1,15 +1,20 @@
 import React, {useState,useEffect} from 'react'
 import axios from "axios";
 import {useHistory} from "react-router-dom";
+import Button from '../common/Button';
 
 const Userlist = ()=> {
     const [userlist, setUserlist] = useState('');
+    const [commentlenlist, setCommentlenlist] = useState('');
+
     const history=useHistory();
 
     useEffect(() => {
         axios.get(`http://localhost:3001/user/read/`)
             .then(res => {
                 setUserlist(res.data.userlist);
+                setCommentlenlist(res.data.commentlength);
+                console.log(res.data.commentlength);
             })
     }, []);
 
@@ -19,30 +24,22 @@ const Userlist = ()=> {
 
     let listuser;
     if (userlist)
-    {       listuser=userlist.map(user =>
-        <tr key={user._id} onClick={()=>handleReadPost(user.userid)}>
-            <td>{user.userid}</td>
-            <td>{user.stockprice}</td>
-            <td>{user.stocknum}</td>
-        </tr>
+    {       listuser=userlist.map(user =>{
+        return(
+        <li key={user._id} >
+            <div>유저이름 : {user.userid}</div>
+            <div>수익률 : {parseFloat(user.profit).toPrecision(3)}%</div>
+            <Button onClick={()=>handleReadPost(user.userid)}>수익률 및 종목 보러가기</Button>
+        </li>)}
     );
     }
 
     return (
         <React.Fragment>
-            <h3>매매일지 List</h3>
-            <table border="1">
-                <thead>
-                <tr>
-                    <th> ID </th>
-                    <th> 추천 수 </th>
-                    <th> 댓글 수 </th>
-                </tr>
-                </thead>
-                <tbody>
-                {listuser}
-                </tbody>
-            </table>
+            <h1>List</h1>
+                <ul class={"userlist"}>
+                    {listuser}
+                </ul>
         </React.Fragment>
     )
 

@@ -79,11 +79,14 @@ const UserForm = ({type})=>{
                 'password': password
             }
         }).then(function (res) {
-            localStorage.setItem('isLogin','true');
-            localStorage.setItem('userid',userid);
-            alert(res.data.msg);
-            if(localStorage.getItem('isLogin')==='true')  history.push('/@'+userid);
-
+            if(res.data.success) {
+                localStorage.setItem('isLogin', 'true');
+                localStorage.setItem('userid', userid);
+                alert(res.data.msg);
+                if (localStorage.getItem('isLogin') === 'true') history.push('/@' + userid);
+            }
+            else
+                alert(res.data.msg);
         }).catch(err => alert(err))
 
     }

@@ -7,17 +7,17 @@ const NavigatorBlock = styled.ul`
   display : flex;
   flex-direction : row;
   width: 100%;
-  height: 80px;
   margin : 0px;
+  margin-bottom: 50px;
   padding : 0px;
   background-color: black;
   list-style-type : none;
-  background: ${palette.gray[3]};
+  background: ${palette.gray[8]};
 `;
 
 const NavigatorItem = styled.li`
   float : left;
-  background-color: ${palette.gray[3]};
+  background-color: ${palette.gray[8]};
   color: #000000;
   padding: 8px;
   text-decoration: none;
@@ -26,8 +26,8 @@ const NavigatorItem = styled.li`
 `;
 const NavigatorLink = styled.a`
   display: block;
-background-color: ${palette.gray[3]};
-color: #000000;
+background-color: ${palette.gray[8]};
+color: white;
 padding: 8px;
 text-decoration: none;
 text-align: center;
@@ -38,7 +38,7 @@ const Navigator = ({type})=>{
     const history=useHistory();
     const handleLogout=()=>{
         localStorage.removeItem('isLogin','false');
-        history.push('/');
+        history.push('/login');
     }
     const writetab=()=>{
         history.push(`/write/@${localStorage.getItem('userid')}`);

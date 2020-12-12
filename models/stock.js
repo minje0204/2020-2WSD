@@ -10,6 +10,9 @@ const stockSchema = new Schema({
     },
     stocklist: [{
         stockname: String, stocknum: Number,stockprice:Number
+    }],
+    commentlist: [{
+        comment: String, date: String, writer:String
     }]
 });
 stockSchema.plugin(mongooseAutoInc.plugin, 'stock');

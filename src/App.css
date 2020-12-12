@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -26,6 +27,78 @@
 
 .App-link {
   color: #61dafb;
+}
+.profitgraph{
+
+  width:100%;
+}
+.chart{
+  width:100%;
+}
+.pop_table {
+  margin:auto;
+  width: 60%;
+
+  border-collapse: separate;
+  border-spacing: 0;
+  border: none;
+  border-bottom:5px solid #495057;
+  color:white;
+}
+.userlist{
+  list-style:none;
+  padding : 10px;
+}
+.background{
+  width:70%;
+  height:300px;
+}
+.pop_table caption{
+  height: 60px;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  line-height: 52px;
+  border-bottom: 5px solid #868e96;
+  -webkit-border-radius: 8px 8px 0 0;
+  -moz-border-radius: 8px 8px 0 0;
+  border-radius: 8px 8px 0 0;
+  background: #495057;
+}
+
+.pop_table caption:before {
+  content: '';
+  display: block;
+  height: 8px;
+  -webkit-border-radius: 8px 8px 0 0;
+  -moz-border-radius: 8px 8px 0 0;
+  border-radius: 8px 8px 0 0;
+  background-color: #495057;
+}
+
+.pop_table th {
+  padding: 15px;
+  border: none;
+  border-bottom: 2px solid #868e96;
+  background: #495057;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.pop_table td {
+  padding: 15px;
+  border: none;
+  border-bottom: 2px solid aliceblue;
+  text-align: center;
+  vertical-align: baseline;
+  color : black;
+  background: gainsboro;
+}
+
+.pop_table tr:last-child th,
+.pop_table tr:last-child td {
+  border-bottom: none;
 }
 
 @keyframes App-logo-spin {
