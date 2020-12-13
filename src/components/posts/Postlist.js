@@ -9,7 +9,7 @@ const Postlist = ({match})=> {
     const {username} = match.params;
 
     useEffect(() => {
-        axios.get(`http://3.36.26.191:3001/stock/read/@${username}`)
+        axios.get(`http://3.35.218.80:3001/stock/read/@${username}`)
             .then(res => {
                 setStocklist(res.data.stocklist);
                 setProfit(res.data.profit);

@@ -22,7 +22,7 @@ const Postform = ()=> {
         e.preventDefault()
         axios({
             method: 'post',
-            url: 'http://3.36.26.191:3001/stock/create',
+            url: 'http://3.35.218.80:3001/stock/create',
             data: {
                 'userid': sessionStorage.getItem('userid'),
                 'sellname': sellname,
