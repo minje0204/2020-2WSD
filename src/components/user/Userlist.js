@@ -5,7 +5,6 @@ import Button from '../common/Button';
 
 const Userlist = ()=> {
     const [userlist, setUserlist] = useState('');
-    const [commentlenlist, setCommentlenlist] = useState('');
 
     const history=useHistory();
 
@@ -13,8 +12,6 @@ const Userlist = ()=> {
         axios.get(`http://localhost:3001/user/read/`)
             .then(res => {
                 setUserlist(res.data.userlist);
-                setCommentlenlist(res.data.commentlength);
-                console.log(res.data.commentlength);
             })
     }, []);
 
@@ -37,7 +34,7 @@ const Userlist = ()=> {
     return (
         <React.Fragment>
             <h1>List</h1>
-                <ul class={"userlist"}>
+                <ul className={"userlist"}>
                     {listuser}
                 </ul>
         </React.Fragment>

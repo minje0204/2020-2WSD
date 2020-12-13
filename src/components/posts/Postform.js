@@ -1,4 +1,4 @@
-import React, {Component, useState,useEffect} from 'react'
+import React, {useState} from 'react'
 import axios from "axios";
 
 
@@ -24,7 +24,7 @@ const Postform = ()=> {
             method: 'post',
             url: 'http://localhost:3001/stock/create',
             data: {
-                'userid': localStorage.getItem('userid'),
+                'userid': sessionStorage.getItem('userid'),
                 'sellname': sellname,
                 'sellnum': parseInt(sellnum, 10),
                 'sellprice': parseInt(sellprice, 10),
@@ -37,7 +37,7 @@ const Postform = ()=> {
             }
         }).then(function (res) {
             console.log(res.data);
-            alert(`수익금 : ${res.data.profit}`);
+            alert(`처리되었습니다!`);
         }).catch(err => alert(err))
 
     }

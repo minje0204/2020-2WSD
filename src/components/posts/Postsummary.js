@@ -15,12 +15,12 @@ const Postsummary = (username)=> {
             return alert('댓글 공란');
         }
         const date=new Date();
-        console.log(localStorage.getItem('userid'));
+        console.log(sessionStorage.getItem('userid'));
         axios({
             method:'post',
             url:`http://localhost:3001/posts/comment/@${username.username}`,
             data: {
-                'writer': localStorage.getItem('userid'),
+                'writer': sessionStorage.getItem('userid'),
                 'comment': event.target.comment.value,
                 'year': date.getFullYear(),
                 'month': date.getMonth(),

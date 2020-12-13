@@ -6,7 +6,7 @@ function AuthRoute({children,...rest}){
         <Route
             {...rest}
             render={({location})=>
-            localStorage.getItem('isLogin')==='true'?(
+            sessionStorage.getItem('isLogin')==='true'?(
                 children
             ):(
                 <Redirect

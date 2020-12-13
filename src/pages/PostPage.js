@@ -1,6 +1,4 @@
-import React,{Component} from 'react';
-import axios from 'axios';
-import Button from '../components/common/Button';
+import React from 'react';
 import Postsummary from '../components/posts/Postsummary'
 
 const PostListPage=({match})=> {

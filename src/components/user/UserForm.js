@@ -45,9 +45,7 @@ const Footer = styled.div`
 const ButtonWithMarginTop = styled(Button)`
     margin-top:1rem;
 `;
-const ButtonWithBottom = styled(Button)`
-    float : right;
-`;
+
 const UserForm = ({type})=>{
     const [userid,setUserid]=useState('');
     const onChangeId=e=>setUserid(e.target.value);
@@ -80,10 +78,10 @@ const UserForm = ({type})=>{
             }
         }).then(function (res) {
             if(res.data.success) {
-                localStorage.setItem('isLogin', 'true');
-                localStorage.setItem('userid', userid);
+                sessionStorage.setItem('isLogin', 'true');
+                sessionStorage.setItem('userid', userid);
                 alert(res.data.msg);
-                if (localStorage.getItem('isLogin') === 'true') history.push('/@' + userid);
+                if (sessionStorage.getItem('isLogin') === 'true') history.push('/');
             }
             else
                 alert(res.data.msg);

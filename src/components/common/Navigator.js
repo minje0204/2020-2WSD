@@ -37,14 +37,14 @@ font-weight: bold;
 const Navigator = ({type})=>{
     const history=useHistory();
     const handleLogout=()=>{
-        localStorage.removeItem('isLogin','false');
+        sessionStorage.removeItem('isLogin','false');
         history.push('/login');
     }
     const writetab=()=>{
-        history.push(`/write/@${localStorage.getItem('userid')}`);
+        history.push(`/write/@${sessionStorage.getItem('userid')}`);
     }
     const posttab=()=>{
-        history.push(`/@${localStorage.getItem('userid')}`);
+        history.push(`/@${sessionStorage.getItem('userid')}`);
     }
     return(
         <NavigatorBlock>
@@ -53,16 +53,16 @@ const Navigator = ({type})=>{
             </NavigatorItem>
 
             <NavigatorItem>
-                {localStorage.getItem('isLogin')==='true'?(<NavigatorLink onClick={handleLogout}> Logout </NavigatorLink>):(
+                {sessionStorage.getItem('isLogin')==='true'?(<NavigatorLink onClick={handleLogout}> Logout </NavigatorLink>):(
                     <NavigatorLink href="/login"> Login </NavigatorLink>)}
             </NavigatorItem>
             <NavigatorItem>
-                {localStorage.getItem('isLogin')==='true'?(<NavigatorLink onClick={writetab}>매매일지 작성</NavigatorLink>
+                {sessionStorage.getItem('isLogin')==='true'?(<NavigatorLink onClick={writetab}>매매일지 작성</NavigatorLink>
                     ):(
                     <NavigatorLink href="/register"> 회원가입 </NavigatorLink>)}
             </NavigatorItem>
             <NavigatorItem>
-                {localStorage.getItem('isLogin')==='true'?(<NavigatorLink onClick={posttab}>자산 평가</NavigatorLink>
+                {sessionStorage.getItem('isLogin')==='true'?(<NavigatorLink onClick={posttab}>자산 평가</NavigatorLink>
                 ):(<div></div>)}
             </NavigatorItem>
 

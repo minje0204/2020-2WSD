@@ -8,8 +8,6 @@ import HomePage from './pages/HomePage';
 import PostWritePage from './pages/PostWritePage';
 import PostPage from './pages/PostPage';
 
-import axios from 'axios';
-import AuthRoute from "./components/user/AuthRoute";
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -18,16 +16,6 @@ class App extends React.Component {
             islogin: false,
         }
     }
-    /*callAPI() {
-        axios.get("http://localhost:3000/posts")
-            .then(res => {
-                console.log(res.data);
-                this.setState({ notices: res.data.notices });
-            })
-    }
-    componentDidMount() {
-        this.callAPI();
-    }*/
     render() {
     return (
         <div className="App">

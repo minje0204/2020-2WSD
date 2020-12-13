@@ -36,10 +36,6 @@ router.post('/checkid',function(req,res) {
     })
 });
 
-
-router.get('/login',function(req, res) {
-    res.send('hi'+req.session.userid);
-})
 router.post('/login', function(req, res){
 
     User.findOne({userid : req.body.userid}, function(err, user){
@@ -60,17 +56,7 @@ router.post('/login', function(req, res){
         });
     })
 })
-router.get('/logout', function(req, res){
-    res.send(`
-        <h1>logout</h1>
-        <form action='/logout' method='post'>
-            <p><input type='text' name="title" placeholder="title"/></p>
-            <p><input type='password' name="author" placeholder="author"/></p>
-            <p><input type='text' name="username" placeholder="username"/></p>
-            <p><input type='submit'/></p>
-        </form>
-        `)
-})
+
 router.post('/logout', function(req, res){
     User.findOne({userid : req.body.userid}, function(err, user){
         if(err)  return res.send(err)
