@@ -9,7 +9,7 @@ const Userlist = ()=> {
     const history=useHistory();
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/user/read/`)
+        axios.get(`http://3.36.26.191:3001/user/read/`)
             .then(res => {
                 setUserlist(res.data.userlist);
             })

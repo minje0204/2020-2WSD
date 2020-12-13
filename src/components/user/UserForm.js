@@ -71,7 +71,7 @@ const UserForm = ({type})=>{
         }
         axios({
             method: 'post',
-            url: 'http://localhost:3001/user/login',
+            url: 'http://3.36.26.191:3001/user/login',
             data: {
                 'userid': userid,
                 'password': password
@@ -103,7 +103,7 @@ const UserForm = ({type})=>{
             }
             axios({
                 method:'post',
-                url:'http://localhost:3001/user/register',
+                url:'http://3.36.26.191:3001/user/register',
                 data: {
                     'userid': userid,
                     'password': password,
@@ -118,7 +118,7 @@ const UserForm = ({type})=>{
 
         axios({
             method:'post',
-            url:'http://localhost:3001/user/checkid',
+            url:'http://3.36.26.191:3001/user/checkid',
             data: {
                 'userid': userid,
                 'password': password

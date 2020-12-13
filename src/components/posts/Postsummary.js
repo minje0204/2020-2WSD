@@ -18,7 +18,7 @@ const Postsummary = (username)=> {
         console.log(sessionStorage.getItem('userid'));
         axios({
             method:'post',
-            url:`http://localhost:3001/posts/comment/@${username.username}`,
+            url:`http://3.36.26.191:3001/posts/comment/@${username.username}`,
             data: {
                 'writer': sessionStorage.getItem('userid'),
                 'comment': event.target.comment.value,
@@ -33,12 +33,12 @@ const Postsummary = (username)=> {
 
     useEffect(() => {
 
-        axios.get(`http://localhost:3001/stock/read/@${username.username}`)
+        axios.get(`http://3.36.26.191:3001/stock/read/@${username.username}`)
             .then(res => {
                 setStocklist(res.data.stocklist);
                 setProfit(res.data.profit);
             })
-        axios.get(`http://localhost:3001/posts/comment/read/@${username.username}`)
+        axios.get(`http://3.36.26.191:3001/posts/comment/read/@${username.username}`)
             .then(res => {
                 setCommentlist(res.data.commentlist);
                 console.log(res.data.commentlist);
@@ -46,7 +46,7 @@ const Postsummary = (username)=> {
 
     }, []);
     const updatecomment=(() => {
-        axios.get(`http://localhost:3001/posts/comment/read/@${username.username}`)
+        axios.get(`http://3.36.26.191:3001/posts/comment/read/@${username.username}`)
             .then(res => {
                 setCommentlist(res.data.commentlist);
                 console.log(res.data.commentlist);

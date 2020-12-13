@@ -13,7 +13,7 @@ const MongoStore=require('connect-mongo')(session);
 const mongoose = require('mongoose');
 const mongooseAutoInc = require('mongoose-auto-increment');
 mongoose.set('useCreateIndex', true)
-mongoose.connect('mongodb://localhost:27017/AntKing', {
+mongoose.connect('mongodb://3.36.26.191:27017/AntKing', {
     useFindAndModify: false,
     useNewUrlParser: true,
     useUnifiedTopology: true,
