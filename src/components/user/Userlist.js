@@ -20,12 +20,14 @@ const Userlist = ()=> {
     }
 
     let listuser;
+    let profit;
     if (userlist)
     {       listuser=userlist.map(user =>{
+        profit=user.profit.reduce((sum,current)=>sum+current,0)/user.profit.length;
         return(
         <li key={user._id} >
             <div>유저이름 : {user.userid}</div>
-            <div>수익률 : {parseFloat(user.profit).toPrecision(3)}%</div>
+            <div>수익률 : {profit.toFixed(3)}%</div>
             <Button onClick={()=>handleReadPost(user.userid)}>수익률 및 종목 보러가기</Button>
         </li>)}
     );

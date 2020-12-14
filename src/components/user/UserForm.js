@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
-import { Link,withRouter,useHistory } from 'react-router-dom';
+import { Link,withRouter,useHistory,Redirect } from 'react-router-dom';
 import Button from '../common/Button';
 import axios from 'axios';
 
@@ -59,7 +59,7 @@ const UserForm = ({type})=>{
     const onChangeCash=e=>setCash(e.target.value);
     const history=useHistory();
     const text=textMap[type];
-
+    const [redirect,setRedirect]=useState(false);
 
     var handleFormSubmit=()=>{};
 
@@ -71,23 +71,25 @@ const UserForm = ({type})=>{
         }
         axios({
             method: 'post',
-            url: 'http://3.36.26.191:3001/user/login',
+            url: 'http://3.35.218.80:3001/user/login',
             data: {
                 'userid': userid,
                 'password': password
             }
         }).then(function (res) {
             if(res.data.success) {
-                sessionStorage.setItem('isLogin', 'true');
+                sessionStorage.setItem('isLogin', true);
                 sessionStorage.setItem('userid', userid);
                 alert(res.data.msg);
-                if (sessionStorage.getItem('isLogin') === 'true') history.push('/');
+                setRedirect(true);
             }
             else
                 alert(res.data.msg);
         }).catch(err => alert(err))
 
     }
+
+
 
 
     }else {    //for register
@@ -101,6 +103,7 @@ const UserForm = ({type})=>{
             if(!password||!userid||!cash){
                 return alert('공란이 있습니다')
             }
+
             axios({
                 method:'post',
                 url:'http://3.35.218.80:3001/user/register',
@@ -165,7 +168,9 @@ const UserForm = ({type})=>{
                 <ButtonWithMarginTop cyan fullWidth>{text}</ButtonWithMarginTop>
 
             </form>
+            {redirect&&(<Redirect to='/' islogin={true}/>)}
             <Footer>
+
                 {type==='login'?(<Link to='/register'>회원가입</Link>):
                     (<Link to="/login">로그인</Link>)}
             </Footer>

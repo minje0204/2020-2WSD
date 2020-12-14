@@ -13,16 +13,20 @@ class App extends React.Component {
         super(props);
         this.state = {
             userid: '',
-            islogin: false,
+            isLogin: true,
         }
+    }
+    tmp(){
+        console.log(sessionStorage.getItem('isLogin'));
+        return true;
     }
     render() {
     return (
         <div className="App">
           <header>
-                  <Navigator/>
-          </header>
 
+          </header>
+            <Navigator islogin={this.tmp()}/>
             <Route component={HomePage} exact path="/" />
           <Route component={LoginPage} path="/login" />
           <Route component={RegisterPage} path="/register" />

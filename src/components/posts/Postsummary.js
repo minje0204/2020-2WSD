@@ -7,6 +7,7 @@ const Postsummary = (username)=> {
     const [profit, setProfit] = useState('');
     const [stocklist, setStocklist] = useState('');
     const [commentlist, setCommentlist] = useState('');
+    const [cash, setCash] = useState('');
 
     const handlecomment=(event) => {
 
@@ -37,6 +38,7 @@ const Postsummary = (username)=> {
             .then(res => {
                 setStocklist(res.data.stocklist);
                 setProfit(res.data.profit);
+                setCash(res.data.cash);
             })
         axios.get(`http://3.35.218.80:3001/posts/comment/read/@${username.username}`)
             .then(res => {
@@ -64,7 +66,7 @@ const Postsummary = (username)=> {
     }
     const option={
         chart:{type:'spline'},
-        title:{text:'수익금추이'},
+        title:{text:'수익율추이'},
         series:[{data:profit}]
     };
 
@@ -97,6 +99,7 @@ const Postsummary = (username)=> {
                 {liststock}
                 </tbody>
             </table>
+            <h2>예수금:{cash}</h2>
             <div class={"profitgraph"}>
             {(profit==0)?(<div>아직수익이 실현되지 않았습니다.</div>):(<HighchartsReact highcharts={Highcharts} containerProps={{className:"chart"}} options={option}/>)}
             </div>

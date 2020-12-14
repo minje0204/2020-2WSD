@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
-import {useHistory} from "react-router-dom";
+import {Redirect, useHistory} from "react-router-dom";
 
 const NavigatorBlock = styled.ul`
   display : flex;
@@ -35,10 +35,12 @@ font-weight: bold;
 `;
 
 const Navigator = ({type})=>{
+    const [tmplogout,setTmplogout]=useState(false);
     const history=useHistory();
     const handleLogout=()=>{
         sessionStorage.removeItem('isLogin','false');
-        history.push('/login');
+        setTmplogout(true);
+       // history.push('/login');
     }
     const writetab=()=>{
         history.push(`/write/@${sessionStorage.getItem('userid')}`);
@@ -65,7 +67,7 @@ const Navigator = ({type})=>{
                 {sessionStorage.getItem('isLogin')==='true'?(<NavigatorLink onClick={posttab}>자산 평가</NavigatorLink>
                 ):(<div></div>)}
             </NavigatorItem>
-
+            {tmplogout&&(<Redirect to='/'/>)}
 
         </NavigatorBlock>
     );

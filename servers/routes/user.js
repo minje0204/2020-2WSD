@@ -22,14 +22,18 @@ router.post('/register',function(req,res) {
     });
 });
 router.post('/checkid',function(req,res) {
+    console.log(req.body);
     User.findOne({userid:req.body.userid},function(err,data)
     {
+
         if(err){res.send(err);}
         else{
             if(data.length!=0){
+                console.log("a");
                 return res.json({success:false,msg:`중복된 ID입니다`});
             }
             else{
+                console.log("b");
                 return res.json({success:true,msg:`사용할 수 있는 ID입니다.`});
             }
         }

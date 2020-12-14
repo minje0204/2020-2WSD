@@ -29,7 +29,7 @@ app.use(session({
         ttl: 60 * 60 // 1시간후 폭파
     }),
     cookie : { // 쿠키에 들어가는 세션 ID값의 옵션
-        maxAge : 1000 * 60 * 2 // 2분후 폭파
+        maxAge : 1000 * 60 * 60 // 1시간후 폭파
     }
 }));
 app.use(bodyParser.urlencoded({extended:true}));
